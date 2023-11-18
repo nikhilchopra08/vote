@@ -1,22 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>vote</title>
-    <base href="/" />
-    <link rel="icon" href="favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="main.css" />
-  </head>
-  <body>
-    <main>
-      <img src="logo.png" alt="DFINITY logo" />
-      <form action="#">
-        <label for="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting"></section>
-    </main>
-  </body>
+<html>
+
+<head>
+  <title>vote</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link type="text/css" rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+  <div class="container">
+    <img src="https://clipart-library.com/images/8TGRAj7Ta.jpg" class="logo" alt="logo"/>
+    <div class="Voting-for-Miss-universe"><h1>Vote For Miss Universe 2023</h1></div>
+    <div class="divider"></div>
+    <form action="your_target_url" method="post">
+      <div class="A">
+        <img class="PlayerA" src="https://i.pinimg.com/736x/89/3d/af/893dafad708c94d1395c4e329269d6bd.jpg" alt="Image of Player A" />
+        <h2>Endi Demneri</h2>
+        <input id="PlayerA" type="submit" value="Vote Now" />
+        <div id="votedfoA"></div>
+      </div>
+      <div class="B">
+        <img class="PlayerB" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3DwGrGp0LQAVldDlHCtDfdZLUSJyV5YIXQ&usqp=CAU" alt="Image of Player B" />
+        <h2>Yamile Dajud</h2>
+        <input id="PlayerB" type="submit" value="Vote Now" />
+        <div id="votedfoB"></div>
+      </div>
+      <div class="C">
+        <img class="PlayerC" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx30mImJRQHhdsBSYjyNDE1OkV-DxzsRus5A&usqp=CAU" alt="Image of Player C" />
+        <h2> Melissa Ingraham </h2>
+        <input id="PlayerC" type="submit" value="Vote Now" />
+        <div id="votedfoC"></div>
+      </div>
+    </form>
+  </div>
+</body>
+
 </html>

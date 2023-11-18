@@ -1,19 +1,76 @@
 import { vote } from "../../declarations/vote";
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+//For First Participant
+function handleClickForA() {
+  console.log("PlayerA");
+  const hasVoted = localStorage.getItem("hasVoted");
 
-  const name = document.getElementById("name").value.toString();
+  if (hasVoted) {
+    console.log("You have already voted.");
+    return;
+  }
 
-  button.setAttribute("disabled", true);
+  vote.VoteA();
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await vote.greet(name);
+  document.getElementById("votedfoA").innerText = "Vote Registered for Player A";
 
-  button.removeAttribute("disabled");
+  localStorage.setItem("hasVoted", "true");
 
-  document.getElementById("greeting").innerText = greeting;
+  PlayerA.removeEventListener("click", handleClickForA);
 
-  return false;
+}
+
+const PlayerA = document.getElementById("PlayerA");
+
+PlayerA.addEventListener("click", handleClickForA);
+PlayerA.setAttribute("disabled", true);
+
+//for Second Participant
+function handleClickForB() {
+  console.log("PlayerB");
+
+  const hasVoted = localStorage.getItem("hasVoted");
+
+  if (hasVoted) {
+    console.log("You have already voted.");
+    return;
+  }
+
+  vote.VoteB();
+
+  document.getElementById("votedfoB").innerText = "Vote Registered for Player B";
+
+  localStorage.setItem("hasVoted", "true");
+}
+
+const PlayerB = document.getElementById("PlayerB");
+
+PlayerB.addEventListener("click", handleClickForB);
+PlayerB.setAttribute("disabled", true);
+
+//For Third Participant
+function handleClickForC() {
+  console.log("PlayerC");
+
+  const hasVoted = localStorage.getItem("hasVoted");
+
+  if (hasVoted) {
+    console.log("You have already voted.");
+    return;
+  }
+
+  vote.VoteC();
+
+  document.getElementById("votedfoC").innerText = "Vote Registered for Player C";
+
+  localStorage.setItem("hasVoted", "true");
+}
+
+const PlayerC = document.getElementById("PlayerC");
+
+PlayerC.addEventListener("click", handleClickForC);
+PlayerC.setAttribute("disabled", true);
+
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault();
 });
