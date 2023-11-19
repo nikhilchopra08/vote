@@ -1,75 +1,54 @@
 import { vote } from "../../declarations/vote";
 
-//For First Participant
-function handleClickForA() {
-  console.log("PlayerA");
-  const hasVoted = localStorage.getItem("hasVoted");
+let votesRemaining = 3;
 
-  if (hasVoted) {
-    console.log("You have already voted.");
-    return;
-  }
+function handlePlayerClick(playerId, voteFunction, votedElementId) {
+  return function () {
+    console.log(`Player ${playerId}`);
+    const hasVoted = localStorage.getItem("hasVoted");
 
-  vote.VoteA();
+    if (hasVoted) {
+      console.log("You have already voted.");
+      return;
+    }
 
-  document.getElementById("votedfoA").innerText = "Vote Registered for Player A";
+    if (votesRemaining <= 0) {
+      console.log("You have used all your votes.");
+      return;
+    }
 
-  localStorage.setItem("hasVoted", "true");
+    voteFunction();
+    document.getElementById(votedElementId).innerText = `Vote Registered for Player ${playerId}`;
 
-  PlayerA.removeEventListener("click", handleClickForA);
+    votesRemaining--;
+    localStorage.setItem("hasVoted", "true");
 
+    if (votesRemaining === 0) {
+      // Disable all players after using all votes
+      disableAllPlayers();
+    }
+  };
+}
+
+function disableAllPlayers() {
+  const players = [PlayerA, PlayerB, PlayerC];
+  players.forEach((player) => {
+    player.removeEventListener("click", player.clickHandler);
+    player.setAttribute("disabled", true);
+  });
 }
 
 const PlayerA = document.getElementById("PlayerA");
-
-PlayerA.addEventListener("click", handleClickForA);
-PlayerA.setAttribute("disabled", true);
-
-//for Second Participant
-function handleClickForB() {
-  console.log("PlayerB");
-
-  const hasVoted = localStorage.getItem("hasVoted");
-
-  if (hasVoted) {
-    console.log("You have already voted.");
-    return;
-  }
-
-  vote.VoteB();
-
-  document.getElementById("votedfoB").innerText = "Vote Registered for Player B";
-
-  localStorage.setItem("hasVoted", "true");
-}
+PlayerA.clickHandler = handlePlayerClick("A", vote.VoteA, "votedfoA");
+PlayerA.addEventListener("click", PlayerA.clickHandler);
 
 const PlayerB = document.getElementById("PlayerB");
-
-PlayerB.addEventListener("click", handleClickForB);
-PlayerB.setAttribute("disabled", true);
-
-//For Third Participant
-function handleClickForC() {
-  console.log("PlayerC");
-
-  const hasVoted = localStorage.getItem("hasVoted");
-
-  if (hasVoted) {
-    console.log("You have already voted.");
-    return;
-  }
-
-  vote.VoteC();
-
-  document.getElementById("votedfoC").innerText = "Vote Registered for Player C";
-
-  localStorage.setItem("hasVoted", "true");
-}
+PlayerB.clickHandler = handlePlayerClick("B", vote.VoteB, "votedfoB");
+PlayerB.addEventListener("click", PlayerB.clickHandler);
 
 const PlayerC = document.getElementById("PlayerC");
-
-PlayerC.addEventListener("click", handleClickForC);
-PlayerC.setAttribute("disabled", true);
+PlayerC.clickHandler = handlePlayerClick("C", vote.VoteC, "votedfoC");
+PlayerC.addEventListener("click", PlayerC.clickHandler);
 
 document.querySelector("form").addEventListener("submit", function (event) {
   event.preventDefault();
